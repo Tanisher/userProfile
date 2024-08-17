@@ -12,20 +12,20 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUsers() {
+    public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<Users> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
-    public User createUser(User user) {
+    public Users createUser(Users user) {
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id)
+    public Users updateUser(Long id, Users userDetails) {
+        Users user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setUsername(userDetails.getUsername());

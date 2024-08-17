@@ -1,7 +1,7 @@
 package com.example.user_profile;
 
-//package com.example.userprofile;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    private UserService userService;
+    private final UserService userService;
 
     @GetMapping
     public List<Users> getAllUsers() {
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping
-    public Users createUser(@RequestBody Users user) {
+    public Users createUser(@RequestBody UserRequest user) {
         return userService.createUser(user);
     }
 

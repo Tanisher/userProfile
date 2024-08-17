@@ -1,16 +1,20 @@
 package com.example.user_profile;
 //package com.example.userprofile;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Data
+@RequiredArgsConstructor
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     public List<Users> getAllUsers() {
         return userRepository.findAll();
@@ -20,8 +24,14 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Users createUser(Users user) {
-        return userRepository.save(user);
+    public Users createUser(UserRequest user) {
+      var newUser = Users.builder()
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .build();
+        return userRepository.save(newUser);
     }
 
     public Users updateUser(Long id, Users userDetails) {
